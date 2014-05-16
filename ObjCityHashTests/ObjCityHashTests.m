@@ -53,17 +53,17 @@ static const UInt64 testdata[kTestSize][16];
 -(void)testExpected:(const UInt64*)expected offset:(int)offset length:(int)len
 {
 	NSData* subdata = [self.data subdataWithRange:NSMakeRange(offset, len)];
-//	const ASMUInt128 u = [subdata cityHash128];
-//	const ASMUInt128 v = [subdata cityHash128WithSeed:kSeed128];
+	const ASMUInt128 u = [subdata cityHash128];
+	const ASMUInt128 v = [subdata cityHash128WithSeed:kSeed128];
 
 	XCTAssertEqual(expected[0], [subdata cityHash64], @"cityHash64 should return expected value");
 	//XCTAssertEqual(expected[15], [subdata cityHash32], @"cityHash32 should return expected value");
 	XCTAssertEqual(expected[1], [subdata cityHash64WithSeed:kSeed0], @"cityHash64WithSeed: should return expected value");
 	XCTAssertEqual(expected[2], [subdata cityHash64WithSeed:kSeed0 andSeed:kSeed1], @"cityHash64WithSeed:andSeed: should return expected value");
-	//XCTAssertEqual(expected[3], ASMUint128Low64(u), @"cityHash128 lower 64-bits should return expected value");
-	//XCTAssertEqual(expected[4], ASMUint128High64(u), @"cityHash128 higher 64-bits should return expected value");
-	//XCTAssertEqual(expected[5], ASMUint128Low64(v), @"cityHash128WithSeed: lower 64-bits should return expected value");
-	//XCTAssertEqual(expected[6], ASMUint128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
+	XCTAssertEqual(expected[3], ASMUint128Low64(u), @"cityHash128 lower 64-bits should return expected value");
+	XCTAssertEqual(expected[4], ASMUint128High64(u), @"cityHash128 higher 64-bits should return expected value");
+	XCTAssertEqual(expected[5], ASMUint128Low64(v), @"cityHash128WithSeed: lower 64-bits should return expected value");
+	XCTAssertEqual(expected[6], ASMUint128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
 }
 
 - (void)testHash
