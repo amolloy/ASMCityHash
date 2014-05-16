@@ -112,7 +112,7 @@ static UInt64 Rotate(UInt64 val, int shift)
 		UInt8 b = s[len >> 1];
 		UInt8 c = s[len - 1];
 		UInt32 y = ((UInt32)a) + (((UInt32)b) << 8);
-		UInt32 z = len + (((UInt32)c) << 2);
+		UInt32 z = (UInt32)len + (((UInt32)c) << 2);
 		return [self shiftMix:y * k2 ^ z * k0] * k2;
 	}
 	return k2;
