@@ -187,6 +187,11 @@ static UInt64 Rotate(UInt64 val, int shift)
 	return b + x;
 }
 
+-(UInt32)cityHash32
+{
+	return 0;
+}
+
 -(UInt64)cityHash64
 {
 	const char* s = [self bytes];

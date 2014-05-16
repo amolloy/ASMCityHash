@@ -57,7 +57,7 @@ static const UInt64 testdata[kTestSize][16];
 	const ASMUInt128 v = [subdata cityHash128WithSeed:kSeed128];
 
 	XCTAssertEqual(expected[0], [subdata cityHash64], @"cityHash64 should return expected value");
-	//XCTAssertEqual(expected[15], [subdata cityHash32], @"cityHash32 should return expected value");
+	XCTAssertEqual(expected[15], [subdata cityHash32], @"cityHash32 should return expected value");
 	XCTAssertEqual(expected[1], [subdata cityHash64WithSeed:kSeed0], @"cityHash64WithSeed: should return expected value");
 	XCTAssertEqual(expected[2], [subdata cityHash64WithSeed:kSeed0 andSeed:kSeed1], @"cityHash64WithSeed:andSeed: should return expected value");
 	XCTAssertEqual(expected[3], ASMUInt128Low64(u), @"cityHash128 lower 64-bits should return expected value");

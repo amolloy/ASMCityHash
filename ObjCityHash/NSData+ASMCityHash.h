@@ -12,6 +12,13 @@
 @interface NSData (ASMCityHash)
 
 /**
+ *	Compute CityHash32 for this data. Most useful in 32-bit binaries.
+ *
+ *	@return The CityHash32 for this data.
+ */
+-(UInt32)cityHash32;
+
+/**
  *	Compute CityHash64 for this data.
  *
  *	@return CityHash64 for this data.
