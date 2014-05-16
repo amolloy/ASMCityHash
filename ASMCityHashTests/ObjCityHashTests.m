@@ -1,6 +1,6 @@
 //
-//  ObjCityHashTests.m
-//  ObjCityHashTests
+//  ASMCityHashTests.m
+//  ASMCityHashTests
 //
 //  Created by Andrew Molloy on 5/16/14.
 //  Copyright (c) 2014 Andrew Molloy. All rights reserved.
@@ -21,11 +21,11 @@ static NSString* testString;
 static const int kStringTestSize = 48;
 static const UInt64 stringTestdata[kStringTestSize][16];
 
-@interface ObjCityHashTests : XCTestCase
+@interface ASMCityHashTests : XCTestCase
 @property (nonatomic, strong) NSData* data;
 @end
 
-@implementation ObjCityHashTests
+@implementation ASMCityHashTests
 
 - (void)setUp
 {

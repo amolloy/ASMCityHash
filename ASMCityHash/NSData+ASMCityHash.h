@@ -1,6 +1,6 @@
 //
 //  NSData+ASMCityHash.h
-//  ObjCityHash
+//  ASMCityHash
 //
 //  Created by Andrew Molloy on 5/16/14.
 //  Copyright (c) 2014 Andrew Molloy. All rights reserved.

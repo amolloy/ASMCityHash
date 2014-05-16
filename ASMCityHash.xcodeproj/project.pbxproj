@@ -340,7 +340,7 @@
 		B42B98011926330800FFC704 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/ObjCityHash.dst;
+				DSTROOT = /tmp/ASMCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -352,7 +352,7 @@
 		B42B98021926330800FFC704 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/ObjCityHash.dst;
+				DSTROOT = /tmp/ASMCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
