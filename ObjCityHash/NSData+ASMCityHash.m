@@ -10,6 +10,14 @@
 
 @implementation NSData (ASMCityHash)
 
+#if !defined(LIKELY)
+#if HAVE_BUILTIN_EXPECT
+#define LIKELY(x) (__builtin_expect(!!(x), 1))
+#else
+#define LIKELY(x) (x)
+#endif
+#endif
+
 // Some primes between 2^63 and 2^64 for various uses.
 static const UInt64 k0 = 0xc3a5c85c97cb3127ULL;
 static const UInt64 k1 = 0xb492b66fbe98f273ULL;
@@ -251,16 +259,160 @@ static UInt64 Rotate(UInt64 val, int shift)
 						  v:seed1];
 }
 
--(ASMUInt128)cityHash128
+// A subroutine for CityHash128().  Returns a decent 128-bit hash for strings
+// of any length representable in signed long.  Based on City and Murmur.
+-(ASMUInt128)cityMurmurWithBytes:(const char*)s length:(NSUInteger)len seed:(ASMUInt128)seed
 {
-	ASMUInt128 a = { 0, 0 };
-	return a;
+	UInt64 a = ASMUInt128Low64(seed);
+	UInt64 b = ASMUInt128High64(seed);
+	UInt64 c = 0;
+	UInt64 d = 0;
+	signed long l = len - 16;
+	if (l <= 0) // len <= 16
+	{
+		a = [self shiftMix:a * k1] * k1;
+		c = b * k1 + [self hashLen0to16Bytes:s length:len];
+		d = [self shiftMix:a + (len >= 8 ? Fetch64(s) : c)];
+	}
+	else  // len > 16
+	{
+		c = [self hashLen16U:Fetch64(s + len - 8) + k1
+						   v:a];
+		d = [self hashLen16U:b + len
+						   v:c + Fetch64(s + len - 16)];
+		a += d;
+		do
+		{
+			a ^= [self shiftMix:Fetch64(s) * k1] * k1;
+			a *= k1;
+			b ^= a;
+			c ^= [self shiftMix:Fetch64(s + 8) * k1] * k1;
+			c *= k1;
+			d ^= c;
+			s += 16;
+			l -= 16;
+		} while (l > 0);
+	}
+	a = [self hashLen16U:a v:c];
+	b = [self hashLen16U:d v:b];
+
+	ASMUInt128 result = { a ^ b, [self hashLen16U:b v:a] };
+	return result;
+}
+
+-(ASMUInt128)cityHash128WithBytes:(const char*)s length:(NSUInteger)len seed:(ASMUInt128)seed
+{
+	if (len < 128)
+	{
+		return [self cityMurmurWithBytes:s
+								  length:len
+									seed:seed];
+	}
+
+	// We expect len >= 128 to be the common case.  Keep 56 bytes of state:
+	// v, w, x, y, and z.
+	ASMUInt128 v;
+	ASMUInt128 w;
+	UInt64 x = ASMUInt128Low64(seed);
+	UInt64 y = ASMUInt128High64(seed);
+	UInt64 z = len * k1;
+	v.first = Rotate(y ^ k1, 49) * k1 + Fetch64(s);
+	v.second = Rotate(v.first, 42) * k1 + Fetch64(s + 8);
+	w.first = Rotate(y + z, 35) * k1 + x;
+	w.second = Rotate(x + Fetch64(s + 88), 53) * k1;
+
+	// This is the same inner loop as CityHash64(), manually unrolled.
+	do
+	{
+		x = Rotate(x + y + v.first + Fetch64(s + 8), 37) * k1;
+		y = Rotate(y + v.second + Fetch64(s + 48), 42) * k1;
+		x ^= w.second;
+		y += v.first + Fetch64(s + 40);
+		z = Rotate(z + w.first, 33) * k1;
+		v = [self weakHashLen32WithBytes:s
+								   seedA:v.second * k1
+									   b:x + w.first];
+		w = [self weakHashLen32WithBytes:s + 32
+								   seedA:z + w.second
+									   b:y + Fetch64(s + 16)];
+		UInt64 tmp = z;
+		z = x;
+		x = tmp;
+
+		s += 64;
+		x = Rotate(x + y + v.first + Fetch64(s + 8), 37) * k1;
+		y = Rotate(y + v.second + Fetch64(s + 48), 42) * k1;
+		x ^= w.second;
+		y += v.first + Fetch64(s + 40);
+		z = Rotate(z + w.first, 33) * k1;
+		v = [self weakHashLen32WithBytes:s
+								   seedA:v.second * k1
+									   b:x + w.first];
+		w = [self weakHashLen32WithBytes:s + 32
+								   seedA:z + w.second
+									   b:y + Fetch64(s + 16)];
+		tmp = z;
+		z = x;
+		x = tmp;
+
+		s += 64;
+		len -= 128;
+	} while (LIKELY(len >= 128));
+	x += Rotate(v.first + z, 49) * k0;
+	y = y * k0 + Rotate(w.second, 37);
+	z = z * k0 + Rotate(w.first, 27);
+	w.first *= 9;
+	v.first *= k0;
+	// If 0 < len < 128, hash up to 4 chunks of 32 bytes each from the end of s.
+	for (size_t tail_done = 0; tail_done < len; ) {
+		tail_done += 32;
+		y = Rotate(x + y, 42) * k0 + v.second;
+		w.first += Fetch64(s + len - tail_done + 16);
+		x = x * k0 + w.first;
+		z += w.second + Fetch64(s + len - tail_done);
+		w.second += v.first;
+		v = [self weakHashLen32WithBytes:s + len - tail_done
+								   seedA:v.first + z
+									   b:v.second];
+		v.first *= k0;
+	}
+	// At this point our 56 bytes of state should contain more than
+	// enough information for a strong 128-bit hash.  We use two
+	// different 56-byte-to-8-byte hashes to get a 16-byte final result.
+	x = [self hashLen16U:x v:v.first];
+	y = [self hashLen16U:y + z v:w.first];
+
+	ASMUInt128 result = { [self hashLen16U:x + v.second v:w.second] + y,
+						  [self hashLen16U:x + w.second v:y + v.second] };
+
+	return result;
 }
 
 -(ASMUInt128)cityHash128WithSeed:(ASMUInt128)seed
 {
-	ASMUInt128 a = { 0, 0 };
-	return a;
+	const char* s = [self bytes];
+	NSUInteger len = self.length;
+
+	return [self cityHash128WithBytes:s
+							   length:len
+								 seed:seed];
+}
+
+-(ASMUInt128)cityHash128
+{
+	NSUInteger len = self.length;
+
+	if (len >= 16)
+	{
+		const char* s = [self bytes];
+		ASMUInt128 seed = { Fetch64(s), Fetch64(s + 8) + k0 };
+		return [self cityHash128WithBytes:s + 16
+								   length:len - 16
+									 seed:seed];
+	}
+
+	ASMUInt128 seed = { k0, k1 };
+	return [self cityHash128WithSeed:seed];
 }
 
 @end
