@@ -11,6 +11,11 @@
 
 @implementation NSString (ASMCityHash)
 
+-(UInt32)cityHash32
+{
+	return [[self dataUsingEncoding:NSUTF8StringEncoding] cityHash32];
+}
+
 -(UInt64)cityHash64
 {
 	return [[self dataUsingEncoding:NSUTF8StringEncoding] cityHash64];

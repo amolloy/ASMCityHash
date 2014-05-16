@@ -12,7 +12,13 @@
 @interface NSString (ASMCityHash)
 
 /**
- *	Compute CityHash64 for this string.
+ *	Compute CityHash32 for this string (as UTF8 bytes). Most useful in 32-bit binaries.
+ *
+ *	@return The CityHash32 for this string.
+ */
+-(UInt32)cityHash32;
+
+/**
  *	Compute CityHash64 for this string (as UTF8 bytes).
  *
  *	@return CityHash64 for this string.
