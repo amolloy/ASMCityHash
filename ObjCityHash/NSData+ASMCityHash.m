@@ -47,12 +47,6 @@ static UInt32 Fetch32(const char *p)
 	return UNALIGNED_LOAD32(p);
 }
 
-static UInt32 Rotate32(UInt32 val, int shift)
-{
-	// Avoid shifting by 32: doing so yields an undefined result.
-	return shift == 0 ? val : ((val >> shift) | (val << (32 - shift)));
-}
-
 // Bitwise right rotate.  Normally this will compile to a single
 // instruction, especially if the shift is a manifest constant.
 static UInt64 Rotate(UInt64 val, int shift)
@@ -187,9 +181,166 @@ static UInt64 Rotate(UInt64 val, int shift)
 	return b + x;
 }
 
+// Magic numbers for 32-bit hashing.  Copied from Murmur3.
+static const UInt32 c1 = 0xcc9e2d51;
+static const UInt32 c2 = 0x1b873593;
+
+// A 32-bit to 32-bit integer hash copied from Murmur3.
+static UInt32 fmix(UInt32 h)
+{
+	h ^= h >> 16;
+	h *= 0x85ebca6b;
+	h ^= h >> 13;
+	h *= 0xc2b2ae35;
+	h ^= h >> 16;
+	return h;
+}
+
+static UInt32 Rotate32(UInt32 val, int shift)
+{
+	// Avoid shifting by 32: doing so yields an undefined result.
+	return shift == 0 ? val : ((val >> shift) | (val << (32 - shift)));
+}
+
+#define PERMUTE3(a, b, c) \
+do \
+{ \
+	UInt32 tmp = a; \
+	a = b; \
+	b = tmp; \
+	tmp = a; \
+	a = c; \
+	c = tmp; \
+} while (0)
+
+static UInt32 Mur(UInt32 a, UInt32 h)
+{
+	// Helper from Murmur3 for combining two 32-bit values.
+	a *= c1;
+	a = Rotate32(a, 17);
+	a *= c2;
+	h ^= a;
+	h = Rotate32(h, 19);
+	return h * 5 + 0xe6546b64;
+}
+
+-(UInt32)hash32Len13to24WithBytes:(const char*)s length:(NSUInteger)len
+{
+	UInt32 a = Fetch32(s - 4 + (len >> 1));
+	UInt32 b = Fetch32(s + 4);
+	UInt32 c = Fetch32(s + len - 8);
+	UInt32 d = Fetch32(s + (len >> 1));
+	UInt32 e = Fetch32(s);
+	UInt32 f = Fetch32(s + len - 4);
+	UInt32 h = (UInt32)len;
+
+	return fmix(Mur(f, Mur(e, Mur(d, Mur(c, Mur(b, Mur(a, h)))))));
+}
+
+-(UInt32)hash32Len0to4WithBytes:(const char*)s length:(NSUInteger)len
+{
+	UInt32 b = 0;
+	UInt32 c = 9;
+	for (size_t i = 0; i < len; i++)
+	{
+		signed char v = s[i];
+		b = b * c1 + v;
+		c ^= b;
+	}
+	return fmix(Mur(b, Mur((UInt32)len, c)));
+}
+
+-(UInt32)hash32Len5to12WithBytes:(const char*)s length:(NSUInteger)len
+{
+	UInt32 a = (UInt32)len;
+	UInt32 b = (UInt32)len * 5;
+	UInt32 c = 9;
+	UInt32 d = b;
+	a += Fetch32(s);
+	b += Fetch32(s + len - 4);
+	c += Fetch32(s + ((len >> 1) & 4));
+	return fmix(Mur(c, Mur(b, Mur(a, d))));
+}
+
 -(UInt32)cityHash32
 {
-	return 0;
+	const char* s = [self bytes];
+	UInt32 len = (UInt32)self.length;
+
+	if (len <= 4)
+	{
+		return [self hash32Len0to4WithBytes:s length:len];
+	}
+	else if (len <= 12)
+	{
+		return [self hash32Len5to12WithBytes:s length:len];
+	}
+	else if (len <= 24)
+	{
+		return [self hash32Len13to24WithBytes:s length:len];
+	}
+
+	// len > 24
+	UInt32 h = len, g = c1 * len, f = g;
+	UInt32 a0 = Rotate32(Fetch32(s + len - 4) * c1, 17) * c2;
+	UInt32 a1 = Rotate32(Fetch32(s + len - 8) * c1, 17) * c2;
+	UInt32 a2 = Rotate32(Fetch32(s + len - 16) * c1, 17) * c2;
+	UInt32 a3 = Rotate32(Fetch32(s + len - 12) * c1, 17) * c2;
+	UInt32 a4 = Rotate32(Fetch32(s + len - 20) * c1, 17) * c2;
+	h ^= a0;
+	h = Rotate32(h, 19);
+	h = h * 5 + 0xe6546b64;
+	h ^= a2;
+	h = Rotate32(h, 19);
+	h = h * 5 + 0xe6546b64;
+	g ^= a1;
+	g = Rotate32(g, 19);
+	g = g * 5 + 0xe6546b64;
+	g ^= a3;
+	g = Rotate32(g, 19);
+	g = g * 5 + 0xe6546b64;
+	f += a4;
+	f = Rotate32(f, 19);
+	f = f * 5 + 0xe6546b64;
+	size_t iters = (len - 1) / 20;
+	do
+	{
+		UInt32 a0 = Rotate32(Fetch32(s) * c1, 17) * c2;
+		UInt32 a1 = Fetch32(s + 4);
+		UInt32 a2 = Rotate32(Fetch32(s + 8) * c1, 17) * c2;
+		UInt32 a3 = Rotate32(Fetch32(s + 12) * c1, 17) * c2;
+		UInt32 a4 = Fetch32(s + 16);
+		h ^= a0;
+		h = Rotate32(h, 18);
+		h = h * 5 + 0xe6546b64;
+		f += a1;
+		f = Rotate32(f, 19);
+		f = f * c1;
+		g += a2;
+		g = Rotate32(g, 18);
+		g = g * 5 + 0xe6546b64;
+		h ^= a3 + a1;
+		h = Rotate32(h, 19);
+		h = h * 5 + 0xe6546b64;
+		g ^= a4;
+		g = OSSwapInt32(g) * 5;
+		h += a4 * 5;
+		h = OSSwapInt32(h);
+		f += a0;
+		PERMUTE3(f, h, g);
+		s += 20;
+	} while (--iters != 0);
+	g = Rotate32(g, 11) * c1;
+	g = Rotate32(g, 17) * c1;
+	f = Rotate32(f, 11) * c1;
+	f = Rotate32(f, 17) * c1;
+	h = Rotate32(h + g, 19);
+	h = h * 5 + 0xe6546b64;
+	h = Rotate32(h, 17) * c1;
+	h = Rotate32(h + f, 19);
+	h = h * 5 + 0xe6546b64;
+	h = Rotate32(h, 17) * c1;
+	return h;
 }
 
 -(UInt64)cityHash64
