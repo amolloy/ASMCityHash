@@ -13,13 +13,14 @@
 
 /**
  *	Compute CityHash64 for this string.
+ *	Compute CityHash64 for this string (as UTF8 bytes).
  *
  *	@return CityHash64 for this string.
  */
 -(UInt64)cityHash64;
 
 /**
- *	Compute CityHash64 for this string with a 64-bit seed hashed into the result.
+ *	Compute CityHash64 for this string (as UTF8 bytes) with a 64-bit seed hashed into the result.
  *
  *	@param seed Seed to hash into the result.
  *
@@ -28,7 +29,7 @@
 -(UInt64)cityHash64WithSeed:(UInt64)seed;
 
 /**
- *	Compute CityHash64 for this string with two 64-bit seeds hashed into the result.
+ *	Compute CityHash64 for this string (as UTF8 bytes) with two 64-bit seeds hashed into the result.
  *
  *	@param seed0 Seed to hash into the result.
  *	@param seed1 Seed to hash into the result.
@@ -38,14 +39,14 @@
 -(UInt64)cityHash64WithSeed:(UInt64)seed0 andSeed:(UInt64)seed1;
 
 /**
- *	Compute CityHash128 for this string.
+ *	Compute CityHash128 for this string (as UTF8 bytes).
  *
  *	@return CityHash128 for this string.
  */
 -(ASMUInt128)cityHash128;
 
 /**
- *	Compute CityHash128 for this string with a 128-bit seed hashed into the result.
+ *	Compute CityHash128 for this string (as UTF8 bytes) with a 128-bit seed hashed into the result.
  *
  *	@param seed Seed to hash into the result.
  *
