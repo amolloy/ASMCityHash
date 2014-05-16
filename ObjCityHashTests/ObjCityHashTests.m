@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "NSData+ASMCityHash.h"
+#import "NSString+ASMCityHash.h"
 
 static const UInt64 k0 = 0xc3a5c85c97cb3127ULL;
 static const UInt64 kSeed0 = 1234567;
@@ -16,6 +17,9 @@ static const ASMUInt128 kSeed128 = {kSeed0, kSeed1};
 static const int kDataSize = 1 << 20;
 static const int kTestSize = 300;
 static const UInt64 testdata[kTestSize][16];
+static NSString* testString;
+static const int kStringTestSize = 48;
+static const UInt64 stringTestdata[kStringTestSize][16];
 
 @interface ObjCityHashTests : XCTestCase
 @property (nonatomic, strong) NSData* data;
@@ -66,7 +70,7 @@ static const UInt64 testdata[kTestSize][16];
 	XCTAssertEqual(expected[6], ASMUInt128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
 }
 
-- (void)testHash
+- (void)testDataHash
 {
 	int i = 0;
 	for (; i < kTestSize - 1; i++)
@@ -75,6 +79,33 @@ static const UInt64 testdata[kTestSize][16];
 	}
 
 	[self testExpected:testdata[i] offset:0 length:kDataSize];
+}
+
+-(void)stringTestExpected:(const UInt64*)expected offset:(int)offset length:(NSUInteger)len
+{
+	NSString* subString = [testString substringWithRange:NSMakeRange(offset, len)];
+	const ASMUInt128 u = [subString cityHash128];
+	const ASMUInt128 v = [subString cityHash128WithSeed:kSeed128];
+
+	XCTAssertEqual(expected[0], [subString cityHash64], @"cityHash64 should return expected value");
+	XCTAssertEqual(expected[7], [subString cityHash32], @"cityHash32 should return expected value");
+	XCTAssertEqual(expected[1], [subString cityHash64WithSeed:kSeed0], @"cityHash64WithSeed: should return expected value");
+	XCTAssertEqual(expected[2], [subString cityHash64WithSeed:kSeed0 andSeed:kSeed1], @"cityHash64WithSeed:andSeed: should return expected value");
+	XCTAssertEqual(expected[3], ASMUInt128Low64(u), @"cityHash128 lower 64-bits should return expected value");
+	XCTAssertEqual(expected[4], ASMUInt128High64(u), @"cityHash128 higher 64-bits should return expected value");
+	XCTAssertEqual(expected[5], ASMUInt128Low64(v), @"cityHash128WithSeed: lower 64-bits should return expected value");
+	XCTAssertEqual(expected[6], ASMUInt128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
+}
+
+- (void)testStringHash
+{
+	int i = 0;
+	for (; i < kStringTestSize - 1; i++)
+	{
+		[self stringTestExpected:stringTestdata[i] offset:i * i length:i];
+	}
+
+	[self stringTestExpected:stringTestdata[i] offset:0 length:testString.length];
 }
 
 @end
@@ -383,4 +414,70 @@ static const UInt64 testdata[kTestSize][16] = {
 	{C(5fb5e48ac7b7fa4f), C(a96170f08f5acbc7), C(bbf5c63d4f52a1e5), C(6cc09e60700563e9), C(d18f23221e964791), C(ffc23eeef7af26eb), C(693a954a3622a315), C(5398210c)},
 };
 
+static const UInt64 stringTestdata[kStringTestSize][16] = {
+{C(9ae16a3b2f90404f), C(75106db890237a4a), C(3feac5f636039766), C(3df09dfc64c09a2b), C(3cb540c392e51e29), C(6b56343feac0663), C(5b7bc50fd8e8ad92), C(dc56d17a)},
+{C(dc1ece4bf56887b1), C(59e24bd4be7abc07), C(e1590f27894aebda), C(195d57ad2a55250b), C(6f499182e2ef4f18), C(fae128db684b23bf), C(94c1e304d3cac1ed), C(a3bcfea1)},
+{C(248e2e6623b7e9a8), C(cbf9c6a8d73cef1), C(9713c5c0b7dc6e73), C(881142dd7747f654), C(52570474a49282c4), C(fd880db955022d70), C(e0f8ac5dca200291), C(d9ae6d32)},
+{C(9236c57fd32f1f16), C(c2b174b65fb82353), C(9d4e74620e5b8c67), C(f29ef17d9acd6d48), C(7d6275f67ce494b3), C(36cfe9c85d07fb32), C(db198c413cc980ea), C(34b9b33d)},
+{C(f948a1b18b43e56f), C(162a4f1ac66b96f1), C(1b87fd0d18a65ca2), C(b37f16d162479e30), C(82a9d1a208cd0563), C(4ed0a8145d6a0a58), C(1c230f1e7a642595), C(d868ce07)},
+{C(3f1c7c2230aa8446), C(adb82a8ac5b2e565), C(c6de06b94803a3ac), C(a53f265759881ebc), C(56edf8d1d1150dcc), C(c11aa3d813b9ece2), C(22cbe1a8f0e1f99b), C(22573d2a)},
+{C(4f97397913b351d), C(ca3f695387d63b27), C(e56b404625917d45), C(80a3972e9cbfad68), C(4507345ee821969d), C(fa84a6b0ef9d78b1), C(18fb7f9c0780b09b), C(95952b34)},
+{C(4f28510a666a0aca), C(c0dfbe5b3c0e7abd), C(798150d4eb25d0e9), C(9ffb2036b56bc775), C(1ac126c6443c496), C(d3285a208dabec05), C(1897f48f9221c630), C(dc0e855f)},
+{C(9fdadd4e06a0955), C(4f14d455698889b7), C(4a8e5b35579c8042), C(5a1803490c589877), C(17e90c28c73d19a0), C(831aaae40ba50fc2), C(d3721bbb361960f4), C(86deff04)},
+{C(d63598df0cfebdef), C(6da4e5cc23f5bf57), C(abf274acd4587275), C(ab4890b5b9fde1b3), C(c0487a636bb15674), C(91e212e8ea806c93), C(e77c24b7815f56d4), C(1f2c3ce8)},
+{C(80a381481b318818), C(2cda50ee12da9469), C(5bb6e7ce61e04b09), C(9a2d12fc02a43581), C(b5f5dc38ff2881), C(4a7453803548dc22), C(b10b48c6d0ad2a37), C(2646d918)},
+{C(ba6ff67f03f6201c), C(6a2116d0406f8fcf), C(84aab94923d26a04), C(9c44769fe3d97e7d), C(290183d3767c25ed), C(d07336e0c4e8f710), C(3c525d0861723ca8), C(69eec083)},
+{C(c1ef333e645831df), C(3ff011544a8f1c55), C(416bcd615088f584), C(30c5d16e6f12e295), C(d63fd3ce85ba24dd), C(49d327a3b88f34be), C(3f22d9119486b902), C(8e4cb277)},
+{C(e99220e3fce5b8c4), C(cd6f4feae49b5652), C(9042683d70596c3d), C(f066aa11a46fbdac), C(b9a4e354f1364740), C(525f2ab9cdb5c443), C(740f5554493fc009), C(85bb7fad)},
+{C(ee91a3553b15d628), C(1bfd2faa5cfe34bb), C(7727b1424bbf2f8e), C(492b29ef541cd8f3), C(ac3b3e72bb25d542), C(2b24e45f1a0b7fb), C(96d33c83b417de49), C(a41af7ad)},
+{C(41c5b5d6d7c46b5d), C(97c46cbb4dd79568), C(4a0a943084fd4b03), C(17df58e766349209), C(83ae0357baf4d97f), C(666abfad711c20ab), C(4bc0fd49a7adeb60), C(a20b2c52)},
+{C(1a121913d676e4a1), C(77d0653473641737), C(4591b9cba777fe07), C(6f9dee511c58b39f), C(6206ad87a767228c), C(b54e28f4a2c66333), C(1271700738e837d0), C(81355858)},
+{C(4e5a5b8212c0f308), C(c383b3ec6f2d12d7), C(793de3195955f804), C(666c079181766f3e), C(5708d337897ef96e), C(1f0b7dd4ba4ee641), C(c04fc7a260a95bbc), C(3bf2ed90)},
+{C(e48d7862edf3213c), C(b0868368221ae606), C(f804148ee3b35004), C(18abe87ff479c4bb), C(efcb09981ebaa5be), C(c3c82620dea02b02), C(fdc9f5648a4ba997), C(ae86509b)},
+{C(d6af0dec128aa203), C(6504e75b813fc7f8), C(d58a979cabb027f1), C(d45f4ebe98c24833), C(6ea338210013a83), C(887402b6f042abe2), C(ad561e94f147bd2f), C(cc1018e2)},
+{C(b556df411667af6f), C(77004c3c91741b24), C(79c3d46d94bc60e0), C(1d2c1ef3e5c40fae), C(2e9a7e16e815f212), C(6c4ae7f6c71748b9), C(f50b9f5b2e316a2f), C(2dda6c15)},
+{C(e1d8a45d7638cc44), C(31390c2310c1754c), C(6ad20676358cf6c1), C(84284db46eb1ff60), C(31687d49fa91157), C(d48e23e66fc8194), C(e719f037d8a0f13d), C(ffdedb61)},
+{C(674653079a5c8bcd), C(f693f22ca8be0393), C(aa41f2b40ca4bc23), C(b569db976150580b), C(508ee3727dcd4037), C(cb3ac21c3847244c), C(bdbd7db92f9dbf7e), C(d63f13b9)},
+{C(15ac46044aca7094), C(1a21afb8e5be1bae), C(261b047c8e6f698a), C(acae0a799a551144), C(b24a247f8d04ec2f), C(40b8eed818f32766), C(94de678638052b8f), C(11c9ddd1)},
+{C(940907d4280cde0e), C(b23014397e338849), C(2e9dfcccf6b20589), C(923977cdbcef9441), C(281b48d20a5c2099), C(4f89a96503a57766), C(779018d11f71158b), C(c79f92d0)},
+{C(66d0a914a58c5263), C(1b1e167795099ab5), C(b1df1727fe6c61ed), C(560fdfacefb62243), C(17481f2d7dc05185), C(9e7d3df586e25789), C(ccc947bb31a0d088), C(8f5ad2df)},
+{C(44cc3d58814c79bf), C(51232acf52d7d9e9), C(db86e283899aacf9), C(8a430cd704df7c5d), C(df94527701a6b2fe), C(1b518055c3740b4), C(a4ee376661075f24), C(2d6a04e3)},
+{C(75e58976b937d0ed), C(c84aacf8f2aa716d), C(3451b0507aebd392), C(22008a22bc2fa942), C(2d51eb11829db1cd), C(92782833a90deeeb), C(ed639bb7233ccaec), C(cab2bbc0)},
+{C(72913a6aec1ba7b1), C(2f9516a64388af8a), C(6466707ddb2af8bc), C(f3ce73b8e9989643), C(e75dd1ad0032c446), C(188496dc6500c1a0), C(f726eb969a19469), C(265a6fd6)},
+{C(18399f8e8698272d), C(6b72274d8d725092), C(4bdb3ac01b98fa42), C(95f8c6e5ca3ece06), C(219c582ce2ff159b), C(98f00b39421cc31), C(dc78318d4f367e57), C(79a1cfce)},
+{C(7df70023b3cd6e9a), C(d15ba1a6db9d88c3), C(eb3f754c70216f9), C(4e47519c6f08d939), C(36b3ded635a0495b), C(da75f5910376436a), C(74d5edb67b27cf27), C(522e17f5)},
+{C(9a17b35824b5bf10), C(80ce859034a09ed4), C(26d2413b981be3c6), C(8183f32fe46121fc), C(2059fc14192263ea), C(ef9a16a18b7e2007), C(e17a9f8f7347ce21), C(39d70a20)},
+{C(5b09440af835551a), C(970f7da6fe7ad832), C(4e8a256a514c59ab), C(191e84e4e7bed5c4), C(2946f847cded958d), C(480f4b1226071f18), C(6707f0e5d55b883a), C(6c46c97f)},
+{C(c59541af005bbca8), C(297f3df4b52c02c0), C(75b80b709ac31c19), C(b3bb01cc5ed2347a), C(de207e5e54368480), C(d7333344c2c8ff9e), C(4d510fc12c5ee745), C(aeb36a1)},
+{C(493bbc7df7a0c9ec), C(4dd8ad1715977bad), C(d6f2ce12c6486e96), C(91fd5baab13c506d), C(f76e3786cc956952), C(4f5cae3394f55862), C(7767ffaeccd5918d), C(30f4837d)},
+{C(51214d32ee1a504d), C(e3c0c08967aaf49), C(bb33830596ca09d0), C(5ddb1db38cef7fc1), C(b7f6bfe93ad7c793), C(9f7990825083379e), C(f9eff1b9815f3573), C(ff0e03ed)},
+{C(18e75353f5f2394b), C(57c413463908d7f1), C(e183cc8631a5ce41), C(348314a3367c6311), C(82ce5a540efe1449), C(203388b7cbd1beb9), C(4106206d0756d1d0), C(5ba13d87)},
+{C(d042d9c14726ec8c), C(659b28c87b88831b), C(f9e90b7f77d696de), C(ffa68f56df7e4560), C(16268f4e128f46c8), C(2be942d225fa2742), C(77e1bf469324350f), C(93783246)},
+{C(f816560fabc2ff49), C(6ddb058b426b8428), C(fae10514a4eaecf4), C(7fa5b51bbb21a105), C(28be77e7f13b8fbe), C(929507b75e298e19), C(28e464c06b4e1ef8), C(8b7c17b8)},
+{C(e5efa0942e39eb05), C(5f33f745afefef1), C(bc85f27484f7c9cc), C(a9c282e2c281d34c), C(94d4c856cb0b5d95), C(f0b07a29c3f0b7b7), C(1aeba7de51f63fea), C(fa364290)},
+{C(6ab9b737d16e250f), C(ad16908447b527d9), C(6b8f5da30303956c), C(40f15ba721702e95), C(568780691826b279), C(f70abfd2c4ad7035), C(2b4862c981fcf5e2), C(436c44a1)},
+{C(16674966167a77d6), C(eed34f447b7fa403), C(f824b8f7be0e4d8b), C(c02353e3423b0604), C(ff6de60dae21515b), C(1c1a6cc020a096d8), C(f56bee82bf711738), C(ca748a40)},
+{C(7bb626e7c0e29be6), C(64c562b823d62646), C(d83119d261c6dd97), C(5cbbaaee911cf330), C(d4e3e4d664a81959), C(52fafc94fd56f45c), C(abf886028b5517ac), C(d3631fab)},
+{C(22d2e4aeb366c11d), C(6018b0bae8a31ec1), C(ae6179c047cdd30c), C(67cd2117eb46ab9f), C(da1e709d65b296cf), C(99b633eaadf391b3), C(1b5bcca980b210a), C(902d0855)},
+{C(1b8bb3f8b007aba2), C(20fdceffc82194aa), C(f8e1d7887200e4d8), C(5f4c153aff2d5822), C(824eadb80354750c), C(ddf0a096811c248c), C(78dfc0b1cde05dc), C(ac7406d1)},
+{C(ade962d1e51ce942), C(dce4f971072b59ba), C(b247bfcdc01df497), C(1633008e41472d0e), C(a4c3b58839846749), C(17a1fc9380d04f27), C(565016cc3a3c1cc8), C(5aea0408)},
+{C(202fe7fee4e140ad), C(83d630e4e312a35c), C(8d07d68cf299acf1), C(c19ce61105152538), C(be68860ff4840e73), C(5ab6cf55dc7bde26), C(135a8c6d13deef31), C(af256522)},
+{C(43b7e8e990dd63ef), C(26d2ef5e4dcfee85), C(efebed4476e8b50f), C(85776e8c369eea3d), C(11175c7565bdae53), C(4c6cc0d426acc12), C(252c4954d74c06b7), C(64f07140)},
+};
+
+#define STRINGIZE(x) #x
+#define STRINGIZE2(x) STRINGIZE(x)
+#define TEST_STRING(text) @ STRINGIZE2(text)
+
+static NSString* testString =
+TEST_STRING
+(
+ Photo booth Schlitz biodiesel ugh ut dolore four loko vero umami swag. Brunch distillery Marfa tattooed kale chips cred normcore anim XOXO. Retro beard raw denim biodiesel cornhole Truffaut meggings 3 wolf moon Neutra Helvetica. Selfies brunch tempor four loko. Umami fixie Helvetica ennui ex twee cornhole Cosby sweater organic DIY mixtape biodiesel pickled normcore paleo. Ad ugh accusamus selfies. Banh mi Marfa Truffaut iPhone culpa Tonx next level vinyl street art Pitchfork polaroid.
+
+ Art party dolore viral PBR&B crucifix locavore cupidatat biodiesel church-key street art photo booth YOLO farm-to-table. Gluten-free esse you probably havent heard of them forage try-hard actually. Pitchfork single-origin coffee fanny pack Helvetica Cosby sweater fingerstache 3 wolf moon roof party elit eiusmod retro odio. Chia mlkshk et roof party ennui placeat bicycle rights Portland Neutra. Twee you probably havent heard of them est assumenda mumblecore yr consectetur pug sapiente cray tousled minim skateboard ethnic. Normcore tempor dolor Pinterest slow-carb sartorial Marfa crucifix flexitarian. Gluten-free est pour-over messenger bag proident biodiesel kale chips banh mi butcher.
+
+ Semiotics in laborum actually Tumblr ullamco freegan aliquip flexitarian you probably havent heard of them sriracha Austin. Brunch organic messenger bag non. Hella flexitarian retro art party eiusmod pour-over PBR&B swag literally labore quis sapiente wayfarers nihil. 90s locavore VHS reprehenderit organic Schlitz dreamcatcher ad ugh irony narwhal Wes Anderson typewriter semiotics. Semiotics messenger bag flannel Vice wayfarers ut eiusmod keffiyeh sint Kickstarter velit meh cornhole. Small batch occaecat voluptate pickled Godard nulla sunt est Odd Future anim McSweeneys. Readymade scenester sustainable synth fixie fingerstache fap.
+
+ Intelligentsia wayfarers distillery meggings asymmetrical. Swag quinoa Portland reprehenderit crucifix cliche aliqua. VHS squid sustainable wolf. Vegan typewriter ennui hashtag reprehenderit DIY Tumblr magna synth adipisicing Schlitz banh mi keytar letterpress. Seitan church-key gluten-free cliche flexitarian in ugh esse bespoke vegan dolore letterpress typewriter. Commodo sed keytar delectus biodiesel Odd Future hashtag cupidatat sapiente. Qui salvia High Life Brooklyn 90s kale chips.
+ );
 
