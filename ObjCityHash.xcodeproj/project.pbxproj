@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B42B97E11926330800FFC704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97E01926330800FFC704 /* Foundation.framework */; };
-		B42B97E61926330800FFC704 /* ObjCityHash.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B42B97E51926330800FFC704 /* ObjCityHash.h */; };
-		B42B97E81926330800FFC704 /* ObjCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B97E71926330800FFC704 /* ObjCityHash.m */; };
 		B42B97EF1926330800FFC704 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97EE1926330800FFC704 /* XCTest.framework */; };
 		B42B97F01926330800FFC704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97E01926330800FFC704 /* Foundation.framework */; };
 		B42B97F21926330800FFC704 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97F11926330800FFC704 /* UIKit.framework */; };
@@ -39,7 +37,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				B42B97E61926330800FFC704 /* ObjCityHash.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,8 +46,6 @@
 		B42B97DD1926330800FFC704 /* libObjCityHash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjCityHash.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B42B97E01926330800FFC704 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B42B97E41926330800FFC704 /* ObjCityHash-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjCityHash-Prefix.pch"; sourceTree = "<group>"; };
-		B42B97E51926330800FFC704 /* ObjCityHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCityHash.h; sourceTree = "<group>"; };
-		B42B97E71926330800FFC704 /* ObjCityHash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCityHash.m; sourceTree = "<group>"; };
 		B42B97ED1926330800FFC704 /* ObjCityHashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCityHashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B42B97EE1926330800FFC704 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B42B97F11926330800FFC704 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -119,8 +114,6 @@
 		B42B97E21926330800FFC704 /* ObjCityHash */ = {
 			isa = PBXGroup;
 			children = (
-				B42B97E51926330800FFC704 /* ObjCityHash.h */,
-				B42B97E71926330800FFC704 /* ObjCityHash.m */,
 				B42B97E31926330800FFC704 /* Supporting Files */,
 				B42B98061926346900FFC704 /* NSString+ASMCityHash.h */,
 				B42B98071926346900FFC704 /* NSString+ASMCityHash.m */,
@@ -240,7 +233,6 @@
 			files = (
 				B42B980C19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */,
 				B42B98081926346900FFC704 /* NSString+ASMCityHash.m in Sources */,
-				B42B97E81926330800FFC704 /* ObjCityHash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +415,7 @@
 				B42B98021926330800FFC704 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B42B98031926330800FFC704 /* Build configuration list for PBXNativeTarget "ObjCityHashTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +424,7 @@
 				B42B98051926330800FFC704 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
