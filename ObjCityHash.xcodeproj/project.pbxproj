@@ -16,6 +16,10 @@
 		B42B97F51926330800FFC704 /* libObjCityHash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97DD1926330800FFC704 /* libObjCityHash.a */; };
 		B42B97FB1926330800FFC704 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B42B97F91926330800FFC704 /* InfoPlist.strings */; };
 		B42B97FD1926330800FFC704 /* ObjCityHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B97FC1926330800FFC704 /* ObjCityHashTests.m */; };
+		B42B98081926346900FFC704 /* NSString+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B98071926346900FFC704 /* NSString+ASMCityHash.m */; };
+		B42B98091926346900FFC704 /* NSString+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B98071926346900FFC704 /* NSString+ASMCityHash.m */; };
+		B42B980C19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */; };
+		B42B980D19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,11 @@
 		B42B97F81926330800FFC704 /* ObjCityHashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ObjCityHashTests-Info.plist"; sourceTree = "<group>"; };
 		B42B97FA1926330800FFC704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B42B97FC1926330800FFC704 /* ObjCityHashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCityHashTests.m; sourceTree = "<group>"; };
+		B42B98061926346900FFC704 /* NSString+ASMCityHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ASMCityHash.h"; sourceTree = "<group>"; };
+		B42B98071926346900FFC704 /* NSString+ASMCityHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ASMCityHash.m"; sourceTree = "<group>"; };
+		B42B980A19264DB900FFC704 /* NSData+ASMCityHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ASMCityHash.h"; sourceTree = "<group>"; };
+		B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ASMCityHash.m"; sourceTree = "<group>"; };
+		B42B980E19264E3300FFC704 /* ASMUInt128.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASMUInt128.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +122,11 @@
 				B42B97E51926330800FFC704 /* ObjCityHash.h */,
 				B42B97E71926330800FFC704 /* ObjCityHash.m */,
 				B42B97E31926330800FFC704 /* Supporting Files */,
+				B42B98061926346900FFC704 /* NSString+ASMCityHash.h */,
+				B42B98071926346900FFC704 /* NSString+ASMCityHash.m */,
+				B42B980A19264DB900FFC704 /* NSData+ASMCityHash.h */,
+				B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */,
+				B42B980E19264E3300FFC704 /* ASMUInt128.h */,
 			);
 			path = ObjCityHash;
 			sourceTree = "<group>";
@@ -224,6 +238,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B42B980C19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */,
+				B42B98081926346900FFC704 /* NSString+ASMCityHash.m in Sources */,
 				B42B97E81926330800FFC704 /* ObjCityHash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +248,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B42B980D19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */,
+				B42B98091926346900FFC704 /* NSString+ASMCityHash.m in Sources */,
 				B42B97FD1926330800FFC704 /* ObjCityHashTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
