@@ -85,7 +85,7 @@
 		B42B97D41926330800FFC704 = {
 			isa = PBXGroup;
 			children = (
-				B42B97E21926330800FFC704 /* ObjCityHash */,
+				B42B97E21926330800FFC704 /* ASMCityHash */,
 				B42B97F61926330800FFC704 /* ObjCityHashTests */,
 				B42B97DF1926330800FFC704 /* Frameworks */,
 				B42B97DE1926330800FFC704 /* Products */,
@@ -111,7 +111,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B42B97E21926330800FFC704 /* ObjCityHash */ = {
+		B42B97E21926330800FFC704 /* ASMCityHash */ = {
 			isa = PBXGroup;
 			children = (
 				B42B97E31926330800FFC704 /* Supporting Files */,
@@ -121,7 +121,7 @@
 				B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */,
 				B42B980E19264E3300FFC704 /* ASMUInt128.h */,
 			);
-			path = ObjCityHash;
+			path = ASMCityHash;
 			sourceTree = "<group>";
 		};
 		B42B97E31926330800FFC704 /* Supporting Files */ = {
@@ -341,7 +341,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/ObjCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ASMCityHash;
 				SKIP_INSTALL = YES;
@@ -353,7 +353,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/ObjCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ASMCityHash;
 				SKIP_INSTALL = YES;
@@ -369,7 +369,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -389,7 +389,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
 				INFOPLIST_FILE = "ObjCityHashTests/ASMCityHashTests-Info.plist";
 				PRODUCT_NAME = ASMCityHashTests;
 				WRAPPER_EXTENSION = xctest;
