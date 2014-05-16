@@ -13,7 +13,7 @@
 		B42B97F21926330800FFC704 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97F11926330800FFC704 /* UIKit.framework */; };
 		B42B97F51926330800FFC704 /* libASMCityHash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97DD1926330800FFC704 /* libASMCityHash.a */; };
 		B42B97FB1926330800FFC704 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B42B97F91926330800FFC704 /* InfoPlist.strings */; };
-		B42B97FD1926330800FFC704 /* ObjCityHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B97FC1926330800FFC704 /* ObjCityHashTests.m */; };
+		B42B97FD1926330800FFC704 /* ASMCityHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B97FC1926330800FFC704 /* ASMCityHashTests.m */; };
 		B42B98081926346900FFC704 /* NSString+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B98071926346900FFC704 /* NSString+ASMCityHash.m */; };
 		B42B98091926346900FFC704 /* NSString+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B98071926346900FFC704 /* NSString+ASMCityHash.m */; };
 		B42B980C19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B980B19264DB900FFC704 /* NSData+ASMCityHash.m */; };
@@ -51,7 +51,7 @@
 		B42B97F11926330800FFC704 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		B42B97F81926330800FFC704 /* ASMCityHashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ASMCityHashTests-Info.plist"; sourceTree = "<group>"; };
 		B42B97FA1926330800FFC704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B42B97FC1926330800FFC704 /* ObjCityHashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCityHashTests.m; sourceTree = "<group>"; };
+		B42B97FC1926330800FFC704 /* ASMCityHashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASMCityHashTests.m; sourceTree = "<group>"; };
 		B42B98061926346900FFC704 /* NSString+ASMCityHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ASMCityHash.h"; sourceTree = "<group>"; };
 		B42B98071926346900FFC704 /* NSString+ASMCityHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ASMCityHash.m"; sourceTree = "<group>"; };
 		B42B980A19264DB900FFC704 /* NSData+ASMCityHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ASMCityHash.h"; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				B42B97E21926330800FFC704 /* ASMCityHash */,
-				B42B97F61926330800FFC704 /* ObjCityHashTests */,
+				B42B97F61926330800FFC704 /* ASMCityHashTests */,
 				B42B97DF1926330800FFC704 /* Frameworks */,
 				B42B97DE1926330800FFC704 /* Products */,
 			);
@@ -132,13 +132,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B42B97F61926330800FFC704 /* ObjCityHashTests */ = {
+		B42B97F61926330800FFC704 /* ASMCityHashTests */ = {
 			isa = PBXGroup;
 			children = (
-				B42B97FC1926330800FFC704 /* ObjCityHashTests.m */,
+				B42B97FC1926330800FFC704 /* ASMCityHashTests.m */,
 				B42B97F71926330800FFC704 /* Supporting Files */,
 			);
-			name = ObjCityHashTests;
 			path = ASMCityHashTests;
 			sourceTree = "<group>";
 		};
@@ -243,7 +242,7 @@
 			files = (
 				B42B980D19264DB900FFC704 /* NSData+ASMCityHash.m in Sources */,
 				B42B98091926346900FFC704 /* NSString+ASMCityHash.m in Sources */,
-				B42B97FD1926330800FFC704 /* ObjCityHashTests.m in Sources */,
+				B42B97FD1926330800FFC704 /* ASMCityHashTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
