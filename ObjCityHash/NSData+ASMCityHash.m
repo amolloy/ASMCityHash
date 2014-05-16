@@ -242,12 +242,13 @@ static UInt64 Rotate(UInt64 val, int shift)
 
 -(UInt64)cityHash64WithSeed:(UInt64)seed
 {
-	return 0;
+	return [self cityHash64WithSeed:k2 andSeed:seed];
 }
 
 -(UInt64)cityHash64WithSeed:(UInt64)seed0 andSeed:(UInt64)seed1
 {
-	return 0;
+	return [self hashLen16U:[self cityHash64] - seed0
+						  v:seed1];
 }
 
 -(ASMUInt128)cityHash128
