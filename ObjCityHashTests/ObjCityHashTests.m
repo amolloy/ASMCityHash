@@ -61,13 +61,13 @@ static const UInt64 stringTestdata[kStringTestSize][16];
 	const ASMUInt128 v = [subdata cityHash128WithSeed:kSeed128];
 
 	XCTAssertEqual(expected[0], [subdata cityHash64], @"cityHash64 should return expected value");
-	XCTAssertEqual(expected[7], [subdata cityHash32], @"cityHash32 should return expected value");
 	XCTAssertEqual(expected[1], [subdata cityHash64WithSeed:kSeed0], @"cityHash64WithSeed: should return expected value");
 	XCTAssertEqual(expected[2], [subdata cityHash64WithSeed:kSeed0 andSeed:kSeed1], @"cityHash64WithSeed:andSeed: should return expected value");
 	XCTAssertEqual(expected[3], ASMUInt128Low64(u), @"cityHash128 lower 64-bits should return expected value");
 	XCTAssertEqual(expected[4], ASMUInt128High64(u), @"cityHash128 higher 64-bits should return expected value");
 	XCTAssertEqual(expected[5], ASMUInt128Low64(v), @"cityHash128WithSeed: lower 64-bits should return expected value");
 	XCTAssertEqual(expected[6], ASMUInt128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
+	XCTAssertEqual(expected[7], [subdata cityHash32], @"cityHash32 should return expected value");
 }
 
 - (void)testDataHash
@@ -88,13 +88,13 @@ static const UInt64 stringTestdata[kStringTestSize][16];
 	const ASMUInt128 v = [subString cityHash128WithSeed:kSeed128];
 
 	XCTAssertEqual(expected[0], [subString cityHash64], @"cityHash64 should return expected value");
-	XCTAssertEqual(expected[7], [subString cityHash32], @"cityHash32 should return expected value");
 	XCTAssertEqual(expected[1], [subString cityHash64WithSeed:kSeed0], @"cityHash64WithSeed: should return expected value");
 	XCTAssertEqual(expected[2], [subString cityHash64WithSeed:kSeed0 andSeed:kSeed1], @"cityHash64WithSeed:andSeed: should return expected value");
 	XCTAssertEqual(expected[3], ASMUInt128Low64(u), @"cityHash128 lower 64-bits should return expected value");
 	XCTAssertEqual(expected[4], ASMUInt128High64(u), @"cityHash128 higher 64-bits should return expected value");
 	XCTAssertEqual(expected[5], ASMUInt128Low64(v), @"cityHash128WithSeed: lower 64-bits should return expected value");
 	XCTAssertEqual(expected[6], ASMUInt128High64(v), @"cityHash128WithSeed: higher 64-bits should return expected value");
+	XCTAssertEqual(expected[7], [subString cityHash32], @"cityHash32 should return expected value");
 }
 
 - (void)testStringHash
