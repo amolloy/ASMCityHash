@@ -64,9 +64,9 @@ static UInt64 Rotate(UInt64 val, int shift)
 {
 	// Murmur-inspired hashing.
 	const UInt64 kMul = 0x9ddfea08eb382d69ULL;
-	UInt64 a = (ASMUint128Low64(x) ^ ASMUint128High64(x)) * kMul;
+	UInt64 a = (ASMUInt128Low64(x) ^ ASMUInt128High64(x)) * kMul;
 	a ^= (a >> 47);
-	UInt64 b = (ASMUint128High64(x) ^ a) * kMul;
+	UInt64 b = (ASMUInt128High64(x) ^ a) * kMul;
 	b ^= (b >> 47);
 	b *= kMul;
 	return b;

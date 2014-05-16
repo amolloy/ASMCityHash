@@ -15,7 +15,7 @@ typedef struct
 	UInt64 second;
 } ASMUInt128;
 
-#define ASMUint128Low64(x) (x.first)
-#define ASMUint128High64(x) (x.second)
+#define ASMUInt128Low64(x) (x.first)
+#define ASMUInt128High64(x) (x.second)
 
 #endif
