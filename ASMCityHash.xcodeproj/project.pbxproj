@@ -138,7 +138,8 @@
 				B42B97FC1926330800FFC704 /* ObjCityHashTests.m */,
 				B42B97F71926330800FFC704 /* Supporting Files */,
 			);
-			path = ObjCityHashTests;
+			name = ObjCityHashTests;
+			path = ASMCityHashTests;
 			sourceTree = "<group>";
 		};
 		B42B97F71926330800FFC704 /* Supporting Files */ = {
@@ -374,7 +375,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ObjCityHashTests/ASMCityHashTests-Info.plist";
+				INFOPLIST_FILE = "ASMCityHashTests/ASMCityHashTests-Info.plist";
 				PRODUCT_NAME = ASMCityHashTests;
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -390,7 +391,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASMCityHash/ASMCityHash-Prefix.pch";
-				INFOPLIST_FILE = "ObjCityHashTests/ASMCityHashTests-Info.plist";
+				INFOPLIST_FILE = "ASMCityHashTests/ASMCityHashTests-Info.plist";
 				PRODUCT_NAME = ASMCityHashTests;
 				WRAPPER_EXTENSION = xctest;
 			};
