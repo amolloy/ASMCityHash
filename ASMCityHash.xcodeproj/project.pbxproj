@@ -11,7 +11,7 @@
 		B42B97EF1926330800FFC704 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97EE1926330800FFC704 /* XCTest.framework */; };
 		B42B97F01926330800FFC704 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97E01926330800FFC704 /* Foundation.framework */; };
 		B42B97F21926330800FFC704 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97F11926330800FFC704 /* UIKit.framework */; };
-		B42B97F51926330800FFC704 /* libObjCityHash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97DD1926330800FFC704 /* libObjCityHash.a */; };
+		B42B97F51926330800FFC704 /* libASMCityHash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B42B97DD1926330800FFC704 /* libASMCityHash.a */; };
 		B42B97FB1926330800FFC704 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B42B97F91926330800FFC704 /* InfoPlist.strings */; };
 		B42B97FD1926330800FFC704 /* ObjCityHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B97FC1926330800FFC704 /* ObjCityHashTests.m */; };
 		B42B98081926346900FFC704 /* NSString+ASMCityHash.m in Sources */ = {isa = PBXBuildFile; fileRef = B42B98071926346900FFC704 /* NSString+ASMCityHash.m */; };
@@ -43,13 +43,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B42B97DD1926330800FFC704 /* libObjCityHash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjCityHash.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B42B97DD1926330800FFC704 /* libASMCityHash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libASMCityHash.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B42B97E01926330800FFC704 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		B42B97E41926330800FFC704 /* ObjCityHash-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjCityHash-Prefix.pch"; sourceTree = "<group>"; };
-		B42B97ED1926330800FFC704 /* ObjCityHashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCityHashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B42B97E41926330800FFC704 /* ASMCityHash-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASMCityHash-Prefix.pch"; sourceTree = "<group>"; };
+		B42B97ED1926330800FFC704 /* ASMCityHashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASMCityHashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B42B97EE1926330800FFC704 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B42B97F11926330800FFC704 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		B42B97F81926330800FFC704 /* ObjCityHashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ObjCityHashTests-Info.plist"; sourceTree = "<group>"; };
+		B42B97F81926330800FFC704 /* ASMCityHashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ASMCityHashTests-Info.plist"; sourceTree = "<group>"; };
 		B42B97FA1926330800FFC704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B42B97FC1926330800FFC704 /* ObjCityHashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCityHashTests.m; sourceTree = "<group>"; };
 		B42B98061926346900FFC704 /* NSString+ASMCityHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ASMCityHash.h"; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			files = (
 				B42B97EF1926330800FFC704 /* XCTest.framework in Frameworks */,
 				B42B97F21926330800FFC704 /* UIKit.framework in Frameworks */,
-				B42B97F51926330800FFC704 /* libObjCityHash.a in Frameworks */,
+				B42B97F51926330800FFC704 /* libASMCityHash.a in Frameworks */,
 				B42B97F01926330800FFC704 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,8 +95,8 @@
 		B42B97DE1926330800FFC704 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B42B97DD1926330800FFC704 /* libObjCityHash.a */,
-				B42B97ED1926330800FFC704 /* ObjCityHashTests.xctest */,
+				B42B97DD1926330800FFC704 /* libASMCityHash.a */,
+				B42B97ED1926330800FFC704 /* ASMCityHashTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 		B42B97E31926330800FFC704 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B42B97E41926330800FFC704 /* ObjCityHash-Prefix.pch */,
+				B42B97E41926330800FFC704 /* ASMCityHash-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -144,7 +144,7 @@
 		B42B97F71926330800FFC704 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B42B97F81926330800FFC704 /* ObjCityHashTests-Info.plist */,
+				B42B97F81926330800FFC704 /* ASMCityHashTests-Info.plist */,
 				B42B97F91926330800FFC704 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -153,9 +153,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B42B97DC1926330800FFC704 /* ObjCityHash */ = {
+		B42B97DC1926330800FFC704 /* ASMCityHash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B42B98001926330800FFC704 /* Build configuration list for PBXNativeTarget "ObjCityHash" */;
+			buildConfigurationList = B42B98001926330800FFC704 /* Build configuration list for PBXNativeTarget "ASMCityHash" */;
 			buildPhases = (
 				B42B97D91926330800FFC704 /* Sources */,
 				B42B97DA1926330800FFC704 /* Frameworks */,
@@ -165,14 +165,14 @@
 			);
 			dependencies = (
 			);
-			name = ObjCityHash;
+			name = ASMCityHash;
 			productName = ObjCityHash;
-			productReference = B42B97DD1926330800FFC704 /* libObjCityHash.a */;
+			productReference = B42B97DD1926330800FFC704 /* libASMCityHash.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		B42B97EC1926330800FFC704 /* ObjCityHashTests */ = {
+		B42B97EC1926330800FFC704 /* ASMCityHashTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B42B98031926330800FFC704 /* Build configuration list for PBXNativeTarget "ObjCityHashTests" */;
+			buildConfigurationList = B42B98031926330800FFC704 /* Build configuration list for PBXNativeTarget "ASMCityHashTests" */;
 			buildPhases = (
 				B42B97E91926330800FFC704 /* Sources */,
 				B42B97EA1926330800FFC704 /* Frameworks */,
@@ -183,9 +183,9 @@
 			dependencies = (
 				B42B97F41926330800FFC704 /* PBXTargetDependency */,
 			);
-			name = ObjCityHashTests;
+			name = ASMCityHashTests;
 			productName = ObjCityHashTests;
-			productReference = B42B97ED1926330800FFC704 /* ObjCityHashTests.xctest */;
+			productReference = B42B97ED1926330800FFC704 /* ASMCityHashTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -197,7 +197,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Andrew Molloy";
 			};
-			buildConfigurationList = B42B97D81926330800FFC704 /* Build configuration list for PBXProject "ObjCityHash" */;
+			buildConfigurationList = B42B97D81926330800FFC704 /* Build configuration list for PBXProject "ASMCityHash" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -209,8 +209,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B42B97DC1926330800FFC704 /* ObjCityHash */,
-				B42B97EC1926330800FFC704 /* ObjCityHashTests */,
+				B42B97DC1926330800FFC704 /* ASMCityHash */,
+				B42B97EC1926330800FFC704 /* ASMCityHashTests */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 /* Begin PBXTargetDependency section */
 		B42B97F41926330800FFC704 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B42B97DC1926330800FFC704 /* ObjCityHash */;
+			target = B42B97DC1926330800FFC704 /* ASMCityHash */;
 			targetProxy = B42B97F31926330800FFC704 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -341,9 +341,9 @@
 			buildSettings = {
 				DSTROOT = /tmp/ObjCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ObjCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ASMCityHash;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -353,9 +353,9 @@
 			buildSettings = {
 				DSTROOT = /tmp/ObjCityHash.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ObjCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ASMCityHash;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -369,13 +369,13 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ObjCityHash-Prefix.pch";
+				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ObjCityHashTests/ObjCityHashTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ObjCityHashTests/ASMCityHashTests-Info.plist";
+				PRODUCT_NAME = ASMCityHashTests;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -389,9 +389,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ObjCityHash/ObjCityHash-Prefix.pch";
-				INFOPLIST_FILE = "ObjCityHashTests/ObjCityHashTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ObjCityHash/ASMCityHash-Prefix.pch";
+				INFOPLIST_FILE = "ObjCityHashTests/ASMCityHashTests-Info.plist";
+				PRODUCT_NAME = ASMCityHashTests;
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -399,7 +399,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B42B97D81926330800FFC704 /* Build configuration list for PBXProject "ObjCityHash" */ = {
+		B42B97D81926330800FFC704 /* Build configuration list for PBXProject "ASMCityHash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B42B97FE1926330800FFC704 /* Debug */,
@@ -408,7 +408,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B42B98001926330800FFC704 /* Build configuration list for PBXNativeTarget "ObjCityHash" */ = {
+		B42B98001926330800FFC704 /* Build configuration list for PBXNativeTarget "ASMCityHash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B42B98011926330800FFC704 /* Debug */,
@@ -417,7 +417,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B42B98031926330800FFC704 /* Build configuration list for PBXNativeTarget "ObjCityHashTests" */ = {
+		B42B98031926330800FFC704 /* Build configuration list for PBXNativeTarget "ASMCityHashTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B42B98041926330800FFC704 /* Debug */,
