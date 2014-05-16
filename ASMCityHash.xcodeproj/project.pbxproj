@@ -26,7 +26,7 @@
 			containerPortal = B42B97D51926330800FFC704 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B42B97DC1926330800FFC704;
-			remoteInfo = ObjCityHash;
+			remoteInfo = ASMCityHash;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -166,7 +166,7 @@
 			dependencies = (
 			);
 			name = ASMCityHash;
-			productName = ObjCityHash;
+			productName = ASMCityHash;
 			productReference = B42B97DD1926330800FFC704 /* libASMCityHash.a */;
 			productType = "com.apple.product-type.library.static";
 		};
@@ -184,7 +184,7 @@
 				B42B97F41926330800FFC704 /* PBXTargetDependency */,
 			);
 			name = ASMCityHashTests;
-			productName = ObjCityHashTests;
+			productName = ASMCityHashTests;
 			productReference = B42B97ED1926330800FFC704 /* ASMCityHashTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
